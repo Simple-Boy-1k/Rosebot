@@ -1,9 +1,9 @@
-
 import logging
 import os
 import sys
 
 import telegram.ext as tg
+from telegram.ext import ApplicationBuilder
 
 # Logging
 logging.basicConfig(
@@ -165,10 +165,10 @@ SUDO_USERS.update({
 })
 
 
-# Initialize Telegram Bot
-updater = tg.Updater(TOKEN, workers=WORKERS)
-
-dispatcher = updater.dispatcher
+# Initialize Telegram Bot (PTB v20+)
+application = ApplicationBuilder().token(TOKEN).build()
+updater = application.updater
+dispatcher = application
 
 SUDO_USERS = list(SUDO_USERS)
 WHITELIST_USERS = list(WHITELIST_USERS)
