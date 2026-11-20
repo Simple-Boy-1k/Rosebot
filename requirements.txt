@@ -1,7 +1,7 @@
 emoji
 requests
 SQLAlchemy
-python-telegram-bot==20.7
+python-telegram-bot>=21.10
 psycopg2-binary
 feedparser
 pyowm
