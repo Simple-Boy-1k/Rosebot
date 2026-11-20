@@ -38,19 +38,19 @@
     },
     "MESSAGE_DUMP": {
       "description": "Optional chat for saved messages",
-      "value": "-1007777777777"
+      "value": "-1003941683136"
     },
     "SUDO_USERS": {
       "description": "Space separated sudo user IDs",
-      "value": ""
+      "value": "8056191996"
     },
     "SUPPORT_USERS": {
       "description": "Space separated support user IDs",
-      "value": ""
+      "value": "8056191996"
     },
     "WHITELIST_USERS": {
       "description": "Space separated whitelisted user IDs",
-      "value": ""
+      "value": "8056191996"
     },
     "DONATION_LINK": {
       "description": "Optional donation link",
