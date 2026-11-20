@@ -1,4 +1,3 @@
-
 {
   "name": "Miss Rose",
   "logo": "https://telegra.ph/file/48522f7be29b993a19e60.jpg",
@@ -10,7 +9,7 @@
     "manager",
     "3"
   ],
-  "repository": "https://github.com/FayasKKD/Miss-Rose-Bot",
+  "repository": "https://github.com/YOUR_USERNAME/Rose",
   "env": {
     "ENV": {
       "description": "Setting this to ANYTHING will enable env variables",
@@ -77,11 +76,12 @@
       "value": "CAACAgQAAxkBAAEHAedfwdK1GHtSZe1Q0F0q6vWRsxL91gAC-QgAAoThEVJCGmPkkeA1_R4E"
     }
   },
-"addons": [
-  {
-    "plan": "heroku-postgresql:essential-0",
-    "options": {
-      "version": "15"
+  "addons": [
+    {
+      "plan": "heroku-postgresql:essential-0",
+      "options": {
+        "version": "16"
+      }
     }
-  }
-]
+  ]
+}
