@@ -7,20 +7,32 @@ import sqlalchemy
 import telegram
 import telegram.ext as tg
 import telegram.helpers as _tg_helpers
+from sqlalchemy.schema import Table
 from telegram.constants import MessageLimit, ParseMode
 from telegram.ext import ApplicationBuilder, filters
 
-# Prevent SQLite from crashing on PostgreSQL-only create_engine kwargs like client_encoding
+# SQLAlchemy 2.x compatibility: track last created engine & pass as default 'bind' to Table.create()
+_LAST_ENGINE = None
 _orig_create_engine = sqlalchemy.create_engine
+_orig_table_create = Table.create
 
 
 def _safe_create_engine(url, *args, **kwargs):
+    global _LAST_ENGINE
     if str(url).startswith("sqlite"):
         kwargs.pop("client_encoding", None)
-    return _orig_create_engine(url, *args, **kwargs)
+    engine = _orig_create_engine(url, *args, **kwargs)
+    _LAST_ENGINE = engine
+    return engine
+
+
+def _safe_table_create(self, bind=None, *args, **kwargs):
+    target_bind = bind if bind is not None else _LAST_ENGINE
+    return _orig_table_create(self, bind=target_bind, *args, **kwargs)
 
 
 sqlalchemy.create_engine = _safe_create_engine
+Table.create = _safe_table_create
 
 # Legacy PTB compatibility patches for v20+
 if not hasattr(telegram, "MAX_MESSAGE_LENGTH"):
