@@ -5,14 +5,17 @@ import sys
 import telegram
 import telegram.ext as tg
 from telegram.constants import MessageLimit, ParseMode
-from telegram.ext import ApplicationBuilder
+from telegram.ext import ApplicationBuilder, filters
 
-# Legacy PTB compatibility patch for constants moved in v20+
+# Legacy PTB compatibility patches for v20+
 if not hasattr(telegram, "MAX_MESSAGE_LENGTH"):
     telegram.MAX_MESSAGE_LENGTH = MessageLimit.MAX_TEXT_LENGTH
 
 if not hasattr(telegram, "ParseMode"):
     telegram.ParseMode = ParseMode
+
+if not hasattr(tg, "Filters"):
+    tg.Filters = filters
 
 # Logging
 logging.basicConfig(
@@ -189,6 +192,9 @@ from tg_bot.modules.helper_funcs.handlers import (
     CustomCommandHandler,
     CustomRegexHandler,
 )
+
+if not hasattr(tg, "RegexHandler"):
+    tg.RegexHandler = CustomRegexHandler
 
 if ALLOW_EXCL:
     tg.CommandHandler = CustomCommandHandler
