@@ -5,7 +5,7 @@ class Config(SampleConfig):
     LOGGER = True
 
     # REQUIRED
-    API_KEY = "8451761734:AAEMLo8Tf8JibFAquVAGhAqoqIgrIhPLDMY"
+    API_KEY = "8451761734:AAHg_Orrk-XhQ14PDJvClBmnyrVGIA6vl90"
     OWNER_ID = "8056191996"
     OWNER_USERNAME = ""
 
