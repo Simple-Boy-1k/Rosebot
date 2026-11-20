@@ -9,7 +9,8 @@ import telegram.ext as tg
 import telegram.helpers as _tg_helpers
 from sqlalchemy.schema import Table
 from telegram.constants import MessageLimit, ParseMode
-from telegram.ext import ApplicationBuilder, filters
+from telegram.ext import ApplicationBuilder, CommandHandler as _PTBCommandHandler
+from telegram.ext import MessageHandler as _PTBMessageHandler, filters
 
 # SQLAlchemy 2.x compatibility: track last created engine & pass as default 'bind' to Table.create()
 _LAST_ENGINE = None
@@ -33,6 +34,59 @@ def _safe_table_create(self, bind=None, *args, **kwargs):
 
 sqlalchemy.create_engine = _safe_create_engine
 Table.create = _safe_table_create
+
+# Legacy PTB v20+ filter aliases
+_LEGACY_FILTER_MAP = {
+    "group": filters.ChatType.GROUPS,
+    "groups": filters.ChatType.GROUPS,
+    "private": filters.ChatType.PRIVATE,
+    "text": filters.TEXT & (~filters.COMMAND),
+    "command": filters.COMMAND,
+    "reply": filters.REPLY,
+    "forwarded": filters.FORWARDED,
+    "sticker": filters.Sticker.ALL,
+    "photo": filters.PHOTO,
+    "video": filters.VIDEO,
+    "audio": filters.AUDIO,
+    "document": filters.Document.ALL,
+    "voice": filters.VOICE,
+    "animation": filters.ANIMATION,
+    "contact": filters.CONTACT,
+    "location": filters.LOCATION,
+    "venue": filters.VENUE,
+    "status_update": filters.StatusUpdate.ALL,
+}
+
+for _attr_name, _filter_val in _LEGACY_FILTER_MAP.items():
+    if not hasattr(filters, _attr_name):
+        setattr(filters, _attr_name, _filter_val)
+
+
+class _CompatCommandHandler(_PTBCommandHandler):
+    def __init__(self, command, callback, filters=None, *args, **kwargs):
+        kwargs.pop("pass_args", None)
+        kwargs.pop("pass_user_data", None)
+        kwargs.pop("pass_chat_data", None)
+        kwargs.pop("pass_job_queue", None)
+        kwargs.pop("pass_update_queue", None)
+        super().__init__(command, callback, filters=filters, *args, **kwargs)
+
+
+class _CompatMessageHandler(_PTBMessageHandler):
+    def __init__(self, filters, callback, *args, **kwargs):
+        kwargs.pop("pass_args", None)
+        kwargs.pop("pass_user_data", None)
+        kwargs.pop("pass_chat_data", None)
+        kwargs.pop("pass_job_queue", None)
+        kwargs.pop("pass_update_queue", None)
+        super().__init__(filters, callback, *args, **kwargs)
+
+
+if not hasattr(tg, "CommandHandler"):
+    tg.CommandHandler = _CompatCommandHandler
+
+if not hasattr(tg, "MessageHandler"):
+    tg.MessageHandler = _CompatMessageHandler
 
 # Legacy PTB compatibility patches for v20+
 if not hasattr(telegram, "MAX_MESSAGE_LENGTH"):
@@ -132,9 +186,10 @@ if ENV:
     PORT = int(os.environ.get("PORT", 5000))
     CERT_PATH = os.environ.get("CERT_PATH")
 
-    DB_URI = os.environ.get("DATABASE_URL")
+    raw_db_uri = os.environ.get("DATABASE_URL", "")
+    DB_URI = raw_db_uri.strip().strip('"').strip("'")
 
-    if DB_URI and DB_URI.startswith("postgres://"):
+    if DB_URI.startswith("postgres://"):
         DB_URI = DB_URI.replace(
             "postgres://",
             "postgresql://",
@@ -193,9 +248,10 @@ else:
     PORT = Config.PORT
     CERT_PATH = Config.CERT_PATH
 
-    DB_URI = Config.SQLALCHEMY_DATABASE_URI
+    raw_db_uri = str(Config.SQLALCHEMY_DATABASE_URI or "")
+    DB_URI = raw_db_uri.strip().strip('"').strip("'")
 
-    if DB_URI and DB_URI.startswith("postgres://"):
+    if DB_URI.startswith("postgres://"):
         DB_URI = DB_URI.replace(
             "postgres://",
             "postgresql://",
