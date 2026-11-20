@@ -1,38 +1,43 @@
-import telegram.ext as tg
 from telegram import Update
+from telegram.ext import CommandHandler, MessageHandler, filters
 
-CMD_STARTERS = ('/', '!')
+CMD_STARTERS = ("/", "!")
 
 
-class CustomCommandHandler(tg.CommandHandler):
+class CustomCommandHandler(CommandHandler):
     def __init__(self, command, callback, **kwargs):
-        if "admin_ok" in kwargs:
-            del kwargs["admin_ok"]
-        super().__init__(command, callback, **kwargs)
+        kwargs.pop("admin_ok", None)
+        kwargs.pop("pass_args", None)
+        kwargs.pop("pass_update_queue", None)
+        kwargs.pop("pass_job_queue", None)
+        kwargs.pop("pass_user_data", None)
+        kwargs.pop("pass_chat_data", None)
+        kwargs.pop("allow_edited", None)
 
-    def check_update(self, update):
-        if (isinstance(update, Update)
-                and (update.message or update.edited_message and self.allow_edited)):
-            message = update.message or update.edited_message
+        if isinstance(command, str):
+            commands = [command]
+        else:
+            commands = list(command)
 
-            if message.text and len(message.text) > 1:
-                fst_word = message.text_html.split(None, 1)[0]
-                if len(fst_word) > 1 and any(fst_word.startswith(start) for start in CMD_STARTERS):
-                    command = fst_word[1:].split('@')
-                    command.append(message.bot.username)  # in case the command was sent without a username
-                    if self.filters is None:
-                        res = True
-                    elif isinstance(self.filters, list):
-                        res = any(func(message) for func in self.filters)
-                    else:
-                        res = self.filters(message)
+        expanded_commands = []
+        for cmd in commands:
+            cmd_clean = cmd.lstrip("/")
+            expanded_commands.append(cmd_clean)
+            for starter in CMD_STARTERS:
+                if starter != "/":
+                    expanded_commands.append(f"{starter}{cmd_clean}")
 
-                    return res and (command[0].lower() in self.command
-                                    and command[1].lower() == message.bot.username.lower())
-
-            return False
+        super().__init__(expanded_commands, callback, **kwargs)
 
 
-class CustomRegexHandler(tg.RegexHandler):
+class CustomRegexHandler(MessageHandler):
     def __init__(self, pattern, callback, friendly="", **kwargs):
-        super().__init__(pattern, callback, **kwargs)
+        kwargs.pop("pass_args", None)
+        kwargs.pop("pass_update_queue", None)
+        kwargs.pop("pass_job_queue", None)
+        kwargs.pop("pass_user_data", None)
+        kwargs.pop("pass_chat_data", None)
+        kwargs.pop("pass_groups", None)
+        self.friendly = friendly
+        regex_filter = filters.Regex(pattern) if isinstance(pattern, str) else pattern
+        super().__init__(regex_filter, callback, **kwargs)
