@@ -1,9 +1,11 @@
 import logging
 import os
 import sys
+import types
 
 import telegram
 import telegram.ext as tg
+import telegram.helpers as _tg_helpers
 from telegram.constants import MessageLimit, ParseMode
 from telegram.ext import ApplicationBuilder, filters
 
@@ -16,6 +18,14 @@ if not hasattr(telegram, "ParseMode"):
 
 if not hasattr(tg, "Filters"):
     tg.Filters = filters
+
+if "telegram.utils" not in sys.modules:
+    _utils_mod = types.ModuleType("telegram.utils")
+    _utils_mod.helpers = _tg_helpers
+    sys.modules["telegram.utils"] = _utils_mod
+
+if "telegram.utils.helpers" not in sys.modules:
+    sys.modules["telegram.utils.helpers"] = _tg_helpers
 
 # Logging
 logging.basicConfig(
