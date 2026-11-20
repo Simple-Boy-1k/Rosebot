@@ -14,7 +14,7 @@ class Config(SampleConfig):
     API_KEY = os.environ.get("TOKEN") or "8451761734:AAHg_Orrk-XhQ14PDJvClBmnyrVGIA6vl90"
     OWNER_ID = os.environ.get("OWNER_ID") or "8056191996"
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME") or "Sarkar_owner1k"
-    API_ID = int(os.environ.get("API_ID") or "31551910")
+    API_ID = int(os.environ.get("API_ID") or "0")
     API_HASH = os.environ.get("API_HASH") or "c2e8e7946d5e4ea947d44b674008f33e"
 
     # RECOMMENDED
