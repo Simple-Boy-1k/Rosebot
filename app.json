@@ -1,87 +1,32 @@
 {
-  "name": "Miss Rose",
-  "logo": "https://telegra.ph/file/48522f7be29b993a19e60.jpg",
-  "description": "Telegram's sassiest group manager. Modular Telegram group management bot!",
-  "keywords": [
-    "telegram",
-    "best",
-    "group",
-    "manager",
-    "3"
-  ],
-  "repository": "https://github.com/YOUR_USERNAME/Rose",
+  "name": "Telegram ID Seller Bot",
+  "description": "Automated Telegram ID selling bot with Auto-OTP fetcher.",
+  "repository": "https://github.com/your-username/your-repo-name",
+  "logo": "https://telegra.ph/file/your-image-id.jpg",
+  "keywords": ["telegram", "bot", "python", "telethon"],
   "env": {
-    "ENV": {
-      "description": "Setting this to ANYTHING will enable env variables",
-      "value": "ANYTHING"
-    },
-    "TOKEN": {
-      "description": "Your bot token, as a string.",
+    "API_ID": {
+      "description": "Get this from my.telegram.org",
       "value": ""
     },
-    "OWNER_ID": {
-      "description": "An integer consisting of your owner ID",
+    "API_HASH": {
+      "description": "Get this from my.telegram.org",
       "value": ""
     },
-    "OWNER_USERNAME": {
-      "description": "Your username",
+    "BOT_TOKEN": {
+      "description": "Get this from @BotFather",
       "value": ""
     },
-    "WEBHOOK": {
-      "description": "Setting this to ANYTHING will enable webhooks when in env mode messages",
-      "value": "ANYTHING"
-    },
-    "URL": {
-      "description": "The Heroku App URL",
+    "ADMIN_ID": {
+      "description": "Your Telegram User ID",
       "value": ""
-    },
-    "MESSAGE_DUMP": {
-      "description": "Optional chat for saved messages",
-      "value": "-1003941683136"
-    },
-    "SUDO_USERS": {
-      "description": "Space separated sudo user IDs",
-      "value": "8056191996"
-    },
-    "SUPPORT_USERS": {
-      "description": "Space separated support user IDs",
-      "value": "8056191996"
-    },
-    "WHITELIST_USERS": {
-      "description": "Space separated whitelisted user IDs",
-      "value": "8056191996"
-    },
-    "DONATION_LINK": {
-      "description": "Optional donation link",
-      "value": ""
-    },
-    "PORT": {
-      "description": "Port to use for webhooks",
-      "value": "8443"
-    },
-    "DEL_CMDS": {
-      "description": "Delete unauthorized commands",
-      "value": "True"
-    },
-    "STRICT_GBAN": {
-      "description": "Enforce global bans",
-      "value": "True"
-    },
-    "ALLOW_EXCL": {
-      "description": "Allow exclamation marks for commands",
-      "value": "True"
-    },
-    "BAN_STICKER": {
-      "description": "Sticker file ID used when banning people",
-      "value": "CAACAgQAAxkBAAEHAedfwdK1GHtSZe1Q0F0q6vWRsxL91gAC-QgAAoThEVJCGmPkkeA1_R4E"
     }
   },
-  "addons": [
-    {
-      "plan": "heroku-postgresql:essential-0",
-      "options": {
-        "version": "16"
-      }
+  "formation": {
+    "worker": {
+      "quantity": 1,
+      "size": "basic"
     }
-  ]
+  }
 }
+
