@@ -2,9 +2,10 @@ import os
 
 from tg_bot.sample_config import Config as SampleConfig
 
-# Safe defaults so missing Heroku Config Vars never crash int() or clients
-API_ID = int(os.environ.get("API_ID") or "0")
-API_HASH = os.environ.get("API_HASH") or ""
+# Telegram API credentials
+API_ID = int(os.environ.get("API_ID") or "31551910")
+API_HASH = os.environ.get("API_HASH") or "c2e8e7946d5e4ea947d44b674008f33e"
+ADMIN_ID = int(os.environ.get("ADMIN_ID") or "8056191996")
 
 
 class Config(SampleConfig):
@@ -13,9 +14,10 @@ class Config(SampleConfig):
     # REQUIRED
     API_KEY = os.environ.get("TOKEN") or "8451761734:AAHg_Orrk-XhQ14PDJvClBmnyrVGIA6vl90"
     OWNER_ID = os.environ.get("OWNER_ID") or "8056191996"
-    OWNER_USERNAME = os.environ.get("OWNER_USERNAME") or "Sarkar_owner1k"
-    API_ID = int(os.environ.get("API_ID") or "0")
+    OWNER_USERNAME = os.environ.get("OWNER_USERNAME") or ""
+    API_ID = int(os.environ.get("API_ID") or "31551910")
     API_HASH = os.environ.get("API_HASH") or "c2e8e7946d5e4ea947d44b674008f33e"
+    ADMIN_ID = int(os.environ.get("ADMIN_ID") or "8056191996")
 
     # RECOMMENDED
     SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URL") or "sqlite:///rosebot.db"
