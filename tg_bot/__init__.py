@@ -2,8 +2,17 @@ import logging
 import os
 import sys
 
+import telegram
 import telegram.ext as tg
+from telegram.constants import MessageLimit, ParseMode
 from telegram.ext import ApplicationBuilder
+
+# Legacy PTB compatibility patch for constants moved in v20+
+if not hasattr(telegram, "MAX_MESSAGE_LENGTH"):
+    telegram.MAX_MESSAGE_LENGTH = MessageLimit.MAX_TEXT_LENGTH
+
+if not hasattr(telegram, "ParseMode"):
+    telegram.ParseMode = ParseMode
 
 # Logging
 logging.basicConfig(
