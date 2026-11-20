@@ -10,10 +10,10 @@ class Config(SampleConfig):
     OWNER_USERNAME = ""
 
     # RECOMMENDED
-    SQLALCHEMY_DATABASE_URI = ""
+    SQLALCHEMY_DATABASE_URI = "sqlite:///rosebot.db"
     MESSAGE_DUMP = -1003941683136
     LOAD = []
-    NO_LOAD = ['translation', 'rss']
+    NO_LOAD = ["translation", "rss"]
     WEBHOOK = False
     URL = None
 
@@ -28,7 +28,7 @@ class Config(SampleConfig):
     STRICT_GBAN = True
     STRICT_GMUTE = True
     WORKERS = 8
-    BAN_STICKER = 'CAACAgQAAxkBAAEHAedfwdK1GHtSZe1Q0F0q6vWRsxL91gAC-QgAAoThEVJCGmPkkeA1_R4E'
+    BAN_STICKER = "CAACAgQAAxkBAAEHAedfwdK1GHtSZe1Q0F0q6vWRsxL91gAC-QgAAoThEVJCGmPkkeA1_R4E"
     ALLOW_EXCL = True
 
 
