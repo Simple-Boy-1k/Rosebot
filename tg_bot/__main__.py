@@ -4,7 +4,7 @@ from typing import List, Optional
 
 from telegram import Chat, InlineKeyboardButton, InlineKeyboardMarkup, Update, User
 from telegram.constants import ParseMode
-from telegram.error import BadRequest, ChatMigrated, NetworkError, TelegramError, TimedOut, Unauthorized
+from telegram.error import BadRequest, ChatMigrated, Forbidden, NetworkError, TelegramError, TimedOut
 from telegram.ext import (
     ApplicationHandlerStop,
     CallbackQueryHandler,
@@ -172,7 +172,7 @@ async def error_callback(update: object, context):
     try:
         if error:
             raise error
-    except Unauthorized:
+    except Forbidden:
         print("no nono1")
         print(error)
     except BadRequest:
@@ -453,7 +453,7 @@ async def donate(update: Update, context):
                 disable_web_page_preview=True,
             )
             await msg.reply_text("I've PM'ed you about donating to my creator!")
-        except Unauthorized:
+        except Forbidden:
             await msg.reply_text("Contact me in PM first to get donation information.")
 
 
