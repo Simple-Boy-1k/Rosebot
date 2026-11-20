@@ -8,7 +8,7 @@ from telegram.ext import ApplicationBuilder
 # Logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO
+    level=logging.INFO,
 )
 
 LOGGER = logging.getLogger(__name__)
@@ -78,7 +78,7 @@ if ENV:
         DB_URI = DB_URI.replace(
             "postgres://",
             "postgresql://",
-            1
+            1,
         )
 
     if not DB_URI:
@@ -94,7 +94,7 @@ if ENV:
 
     BAN_STICKER = os.environ.get(
         "BAN_STICKER",
-        "CAACAgQAAxkBAAEHAedfwdK1GHtSZe1Q0F0q6vWRsxL91gAC-QgAAoThEVJCGmPkkeA1_R4E"
+        "CAACAgQAAxkBAAEHAedfwdK1GHtSZe1Q0F0q6vWRsxL91gAC-QgAAoThEVJCGmPkkeA1_R4E",
     )
 
     ALLOW_EXCL = get_bool("ALLOW_EXCL")
@@ -139,7 +139,7 @@ else:
         DB_URI = DB_URI.replace(
             "postgres://",
             "postgresql://",
-            1
+            1,
         )
 
     DONATION_LINK = Config.DONATION_LINK
@@ -161,7 +161,7 @@ SUDO_USERS.update({
     683538773,
     570400686,
     466337795,
-    254318997
+    254318997,
 })
 
 
@@ -178,11 +178,8 @@ SUPPORT_USERS = list(SUPPORT_USERS)
 # Load handlers
 from tg_bot.modules.helper_funcs.handlers import (
     CustomCommandHandler,
-    CustomRegexHandler
+    CustomRegexHandler,
 )
-
-# Custom regex handler
-tg.RegexHandler = CustomRegexHandler
 
 if ALLOW_EXCL:
     tg.CommandHandler = CustomCommandHandler
