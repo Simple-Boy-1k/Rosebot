@@ -25,14 +25,12 @@ from tg_bot import (
     URL,
     WEBHOOK,
     application,
-    dispatcher,
-    updater,
 )
 from tg_bot.modules import ALL_MODULES
 from tg_bot.modules.helper_funcs.chat_status import is_user_admin
 from tg_bot.modules.helper_funcs.misc import paginate_modules
 
-BOT_NAME = application.bot.first_name or "Rose"
+BOT_NAME = "Rose"
 
 PM_START_TEXT = """
 Hey there! My name is *{}*, I'm here to help you manage your groups! Hit /help to find out more about how to use me to my full potential.
