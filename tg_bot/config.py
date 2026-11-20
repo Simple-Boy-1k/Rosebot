@@ -26,6 +26,7 @@ class Config(SampleConfig):
     PORT = 5000
     DEL_CMDS = True
     STRICT_GBAN = True
+    STRICT_GMUTE = True
     WORKERS = 8
     BAN_STICKER = 'CAACAgQAAxkBAAEHAedfwdK1GHtSZe1Q0F0q6vWRsxL91gAC-QgAAoThEVJCGmPkkeA1_R4E'
     ALLOW_EXCL = True
