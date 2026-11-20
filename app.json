@@ -10,7 +10,7 @@
     "manager",
     "3"
   ],
-  "repository": "hhttps://github.com/FayasKKD/Miss-Rose-Bot",
+  "repository": "https://github.com/FayasKKD/Miss-Rose-Bot",
   "env": {
     "ENV": {
       "description": "Setting this to ANYTHING will enable env variables",
@@ -21,7 +21,7 @@
       "value": ""
     },
     "OWNER_ID": {
-      "description": "An integer of consisting of your owner ID",
+      "description": "An integer consisting of your owner ID",
       "value": ""
     },
     "OWNER_USERNAME": {
@@ -33,55 +33,55 @@
       "value": "ANYTHING"
     },
     "URL": {
-      "description": "The Heroku App URL similar to https://<appname>.herokuapp.com/",
+      "description": "The Heroku App URL",
       "value": ""
     },
     "MESSAGE_DUMP": {
-      "description": "optional: a chat where your replied saved messages are stored, to stop people deleting their old",
+      "description": "Optional chat for saved messages",
       "value": "-1007777777777"
     },
     "SUDO_USERS": {
-      "description": "A space separated list of user_ids which should be considered sudo users",
+      "description": "Space separated sudo user IDs",
       "value": ""
     },
     "SUPPORT_USERS": {
-      "description": "A space separated list of user_ids which should be considered support users (can gban/ungban, nothing else)",
+      "description": "Space separated support user IDs",
       "value": ""
     },
     "WHITELIST_USERS": {
-      "description": "A space separated list of user_ids which should be considered whitelisted - they can't be banned.",
+      "description": "Space separated whitelisted user IDs",
       "value": ""
     },
     "DONATION_LINK": {
-      "description": "Optional: link where you would like to receive donations.",
+      "description": "Optional donation link",
       "value": ""
     },
     "PORT": {
-      "description": "Port to use for your webhooks",
+      "description": "Port to use for webhooks",
       "value": "8443"
     },
     "DEL_CMDS": {
-      "description": "Whether to delete commands from users which don't have rights to use that command",
+      "description": "Delete unauthorized commands",
       "value": "True"
     },
     "STRICT_GBAN": {
-      "description": "Enforce gbans across new groups as well as old groups. When a gbanned user talks, he will be banned.",
+      "description": "Enforce global bans",
       "value": "True"
     },
     "ALLOW_EXCL": {
-      "description": "Whether to allow using exclamation marks ! for commands as well as /.",
+      "description": "Allow exclamation marks for commands",
       "value": "True"
     },
     "BAN_STICKER": {
-      "description": "Which sticker to use when banning people. Use https://telegram.dog/ShowJsonBot to get the file_id",
+      "description": "Sticker file ID used when banning people",
       "value": "CAACAgQAAxkBAAEHAedfwdK1GHtSZe1Q0F0q6vWRsxL91gAC-QgAAoThEVJCGmPkkeA1_R4E"
     }
   },
   "addons": [
     {
-      "plan": "heroku-postgresql",
+      "plan": "heroku-postgresql:essential-0",
       "options": {
-        "version": "10"
+        "version": "15"
       }
     }
   ]
