@@ -27,6 +27,19 @@ if "telegram.utils" not in sys.modules:
 if "telegram.utils.helpers" not in sys.modules:
     sys.modules["telegram.utils.helpers"] = _tg_helpers
 
+
+def _run_async(func):
+    return func
+
+
+if not hasattr(tg, "run_async"):
+    tg.run_async = _run_async
+
+if "telegram.ext.dispatcher" not in sys.modules:
+    _disp_mod = types.ModuleType("telegram.ext.dispatcher")
+    _disp_mod.run_async = _run_async
+    sys.modules["telegram.ext.dispatcher"] = _disp_mod
+
 # Logging
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
